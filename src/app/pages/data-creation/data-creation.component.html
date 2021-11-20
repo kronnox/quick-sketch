@@ -20,7 +20,7 @@
     <br>
     <wot-button icon="arrow-redo" (click)="drawingCanvas.redoLast()" [disabled]="!drawingCanvas.canRedo()"></wot-button>
     <br>
-    <wot-button icon="checkmark" (click)="saveCanvas(drawingCanvas)" (click)="drawingCanvas.clear()" [disabled]="images.length >= 3"></wot-button>
+    <wot-button icon="checkmark" (click)="saveCanvas(drawingCanvas)" (click)="drawingCanvas.clear()"></wot-button>
 
   </wot-sidebar>
 </div>

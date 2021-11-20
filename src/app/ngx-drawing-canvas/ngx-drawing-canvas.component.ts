@@ -39,7 +39,7 @@ export class NgxDrawingCanvasComponent implements AfterViewInit {
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = this.strokeColor;
     this.cx.fillStyle = this.backgroundColor;
-
+    this.cx.fillRect(0, 0, this.realWidth, this.realHeight);
     this.captureEvents(canvasEl);
   }
 
