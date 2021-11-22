@@ -110,6 +110,7 @@ export class NgxDrawingCanvasComponent implements AfterViewInit {
 
   public clearCanvas(): void {
     this.cx.clearRect(0, 0, this.realWidth, this.realHeight);
+    this.cx.fillRect(0, 0, this.realWidth, this.realHeight);
   }
 
   public canUndo(): boolean {
