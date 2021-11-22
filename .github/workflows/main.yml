@@ -27,3 +27,4 @@ jobs:
         username: ${{ secrets.username }}
         password: ${{ secrets.password }}
         local-dir: ./dist/wot-frontend/
+        exclude: '**/svg/**'
