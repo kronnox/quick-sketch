@@ -31,7 +31,7 @@ export class DataCreationComponent implements OnInit {
   }
 
   async downloadBase64Image(image: string) {
-    let fileName = this.obj + '-' + this.counter + '.png';
+    let fileName = Date.now()+ '.png';
     this.counter++;
     const blob = await this.getBlobFromBase64Image(image);
     console.log(blob)
