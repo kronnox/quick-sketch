@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NgxDrawingCanvasComponent} from "../../ngx-drawing-canvas/ngx-drawing-canvas.component";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {take} from "rxjs";
+import {ToastrService} from "ngx-toastr";
+import {BackendService} from "../../shared/backend.service";
 
 @Component({
   selector: 'app-data-creation',
@@ -13,15 +17,20 @@ export class DataCreationComponent implements OnInit {
   private obj: string = 'obj';
   private counter: number = 0;
 
-  constructor() { }
+  public classes: string[];
+  public currentPredictions: number[];
+  public predictionIndex: number;
 
-  ngOnInit(): void {
-  }
+  constructor(protected backendService: BackendService) { }
+
+  ngOnInit(): void {}
 
   public saveCanvas(canvas: NgxDrawingCanvasComponent): void {
     this.images.push(canvas.canvas.nativeElement.toDataURL("image/png"));
     console.log(this.images);
     this.downloadBase64Image(canvas.canvas.nativeElement.toDataURL("image/png"));
+
+    canvas.clear();
   }
 
   async getBlobFromBase64Image(base64Data: string) {
@@ -42,6 +51,15 @@ export class DataCreationComponent implements OnInit {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
 
+  async uploadCanvas(canvas: NgxDrawingCanvasComponent) {
+    const blob = await this.getBlobFromBase64Image(canvas.canvas.nativeElement.toDataURL("image/png"));
+
+    this.classes = this.backendService.classes;
+    this.currentPredictions = await this.backendService.predictBlob(blob);
+    this.predictionIndex = this.currentPredictions.indexOf(Math.max.apply(null, this.currentPredictions));
+
+    canvas.clear();
   }
 }
