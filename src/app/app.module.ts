@@ -15,7 +15,6 @@ import {NgSimpleProgressBarModule} from "ng-simple-progress-bar";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgSimpleProgressBarModule,
     ToastrModule.forRoot(),
     AppRoutingModule,
     NgbModule
