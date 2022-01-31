@@ -33,7 +33,7 @@
     <tr *ngFor="let class of classes; let i = index" [style.color]="predictionIndex == i ? 'red' : 'white'">
       <td>{{class}}</td>
       <td>
-        {{(currentPredictions?.[i] || 0) * 100}}
+        {{currentPredictions?.[i] || 0}}
       </td>
     </tr>
   </table>

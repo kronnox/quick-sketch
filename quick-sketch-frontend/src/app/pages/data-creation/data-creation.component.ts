@@ -43,7 +43,6 @@ export class DataCreationComponent implements OnInit {
     let fileName = Date.now()+ '.png';
     this.counter++;
     const blob = await this.getBlobFromBase64Image(image);
-    console.log(blob)
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = fileName;
