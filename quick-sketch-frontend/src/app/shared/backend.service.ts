@@ -26,10 +26,9 @@ export class BackendService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    formData.forEach(r => console.log(r))
     const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", formData, {headers: headers}));
     //this.toastr.success('It\'s a ' + res[0].class+'!');
-    return res[0].confidence;
+    return res.confidence[0];
     //return new Array<number>(this._classes.length);
   }
 }

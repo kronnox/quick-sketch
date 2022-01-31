@@ -1,8 +1,8 @@
 .content {
   position: relative;
-  height: calc(100% - calc(var(--base-scale) * 4rem));
   display:flex;
   flex-direction: row;
+  align-items: center;
 }
 .inner-content {
 }
@@ -31,5 +31,5 @@ body {
 
 .prediction-table {
   color: white;
-  padding: 1em;
+  padding: 2em;
 }
