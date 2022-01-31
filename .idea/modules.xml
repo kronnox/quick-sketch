@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/quick-sketch.iml" filepath="$PROJECT_DIR$/.idea/quick-sketch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quick-sketch-frontend/quick-sketch-frontend.iml" filepath="$PROJECT_DIR$/quick-sketch-frontend/quick-sketch-frontend.iml" />
+    </modules>
+  </component>
+</project>
