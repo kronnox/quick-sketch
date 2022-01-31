@@ -7,7 +7,6 @@ import {NgxDrawingCanvasModule} from "../../ngx-drawing-canvas/ngx-drawing-canva
 import {LayoutModule} from "../../common/layout/layout.module";
 import {ButtonsModule} from "../../common/buttons/buttons.module";
 
-
 @NgModule({
   declarations: [
     DataCreationComponent
@@ -17,7 +16,7 @@ import {ButtonsModule} from "../../common/buttons/buttons.module";
     DataCreationRoutingModule,
     NgxDrawingCanvasModule,
     LayoutModule,
-    ButtonsModule
+    ButtonsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

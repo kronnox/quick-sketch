@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  wot-backend:
+    container_name: wot-backend
+    image: ghcr.io/kronnox/wot-backend:latest
+    environment:
+      - WOT_SAVE_PATH=/out
+    volumes:
+      - ~/out:/out
+    ports:
+      - "8000:8000"
+    restart:
+      on-failure
+  quick-sketch:
+    container_name: quick-sketch
+    image: ghcr.io/kronnox/quick-sketch:latest
+    depends_on:
+      - wot-backend
+    ports:
+      - "80:80"
+    restart:
+      on-failure
