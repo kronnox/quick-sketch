@@ -4,14 +4,14 @@ services:
   wot-backend:
     container_name: wot-backend
     image: ghcr.io/kronnox/wot-backend:latest
+    environment:
+      - WOT_SAVE_PATH=/out
     volumes:
-      - .:/application
+      - ~/out:/out
     ports:
       - "8000:8000"
     restart:
       on-failure
-    networks:
-      - shared
   quick-sketch:
     container_name: quick-sketch
     image: ghcr.io/kronnox/quick-sketch:latest
@@ -21,8 +21,3 @@ services:
       - "80:80"
     restart:
       on-failure
-    networks:
-      - shared
-networks:
-  shared:
-    driver: bridge
