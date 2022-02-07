@@ -17,13 +17,20 @@ export class DataCreationComponent implements OnInit {
   private obj: string = 'obj';
   private counter: number = 0;
 
-  public classes: string[];
+  public classCount: number;
   public currentPredictions: number[];
   public predictionIndex: number;
+  public suggestionIndex: number;
+  public lastSuggestionIndex: number;
 
-  constructor(protected backendService: BackendService) { }
+  constructor(public backendService: BackendService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.backendService.$classes.pipe(take(1)).subscribe(r => {
+      this.classCount = r.length;
+      this.updateSuggestion();
+    });
+  }
 
   public saveCanvas(canvas: NgxDrawingCanvasComponent): void {
     this.images.push(canvas.canvas.nativeElement.toDataURL("image/png"));
@@ -55,10 +62,22 @@ export class DataCreationComponent implements OnInit {
   async uploadCanvas(canvas: NgxDrawingCanvasComponent) {
     const blob = await this.getBlobFromBase64Image(canvas.canvas.nativeElement.toDataURL("image/png"));
 
-    this.classes = this.backendService.classes;
     this.currentPredictions = await this.backendService.predictBlob(blob);
     this.predictionIndex = this.currentPredictions.indexOf(Math.max.apply(null, this.currentPredictions));
 
     canvas.clear();
+
+    this.updateSuggestion();
+  }
+
+  public getClassColor(index: number) {
+    if (index != this.predictionIndex) return 'white';
+    if (index == this.lastSuggestionIndex) return 'lightgreen';
+    return 'red';
+  }
+
+  private updateSuggestion(): void {
+    this.lastSuggestionIndex = this.suggestionIndex;
+    this.suggestionIndex = Math.floor(Math.random() * this.classCount);
   }
 }
