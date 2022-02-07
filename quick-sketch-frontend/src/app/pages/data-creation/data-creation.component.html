@@ -20,21 +20,21 @@
     <br>
     <wot-button icon="arrow-redo" (click)="drawingCanvas.redoLast()" [disabled]="!drawingCanvas.canRedo()"></wot-button>
     <br>
-    <wot-button icon="checkmark" (click)="saveCanvas(drawingCanvas)"></wot-button>
-    <br>
     <wot-button icon="cloud-upload-outline" (click)="uploadCanvas(drawingCanvas)"></wot-button>
 
   </wot-sidebar>
-  <table class="prediction-table" *ngIf="classes">
+  <table class="prediction-table">
+    <h2>Draw a(n) {{(backendService.$classes | async)?.[suggestionIndex]}}</h2>
     <tr>
       <th>Class</th>
       <th>Confidence</th>
     </tr>
-    <tr *ngFor="let class of classes; let i = index" [style.color]="predictionIndex == i ? 'red' : 'white'">
+    <tr *ngFor="let class of backendService.$classes | async; let i = index" [style.color]="getClassColor(i)">
       <td>{{class}}</td>
       <td>
         {{currentPredictions?.[i] || 0}}
       </td>
     </tr>
   </table>
+
 </div>

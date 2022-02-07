@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NgxDrawingCanvasComponent} from "../ngx-drawing-canvas/ngx-drawing-canvas.component";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {firstValueFrom, lastValueFrom, Observable, take} from "rxjs";
+import {firstValueFrom, lastValueFrom, map, Observable, take} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 
 @Injectable({
@@ -9,14 +9,10 @@ import {ToastrService} from "ngx-toastr";
 })
 export class BackendService {
 
-  public classes: string[];
+  public $classes: Observable<string[]>;
 
-  constructor(private httpClient: HttpClient, private toastr: ToastrService) {
-    this.httpClient.get<any>("http://85.235.67.211:8000/categories", {}).pipe(take(1)).subscribe(
-      (res) => {
-        this.classes = res.categories;
-      }
-    );
+  constructor(private httpClient: HttpClient) {
+    this.$classes = this.httpClient.get<any>("http://85.235.67.211:8000/categories", {}).pipe(map(r => r.categories));
   }
 
   async predictBlob(blob: Blob): Promise<number[]> {
