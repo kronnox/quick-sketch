@@ -22,9 +22,7 @@ export class BackendService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", formData, {headers: headers}));
-    //this.toastr.success('It\'s a ' + res[0].class+'!');
-    return res.confidence[0];
-    //return new Array<number>(this._classes.length);
+    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", {file: formData, save_image: true}, {headers: headers}));
+    return res.confidence;
   }
 }
