@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NgxDrawingCanvasComponent} from "../ngx-drawing-canvas/ngx-drawing-canvas.component";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {firstValueFrom, lastValueFrom, map, Observable, take} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 
@@ -18,11 +18,12 @@ export class BackendService {
   async predictBlob(blob: Blob): Promise<number[]> {
     const formData = new FormData();
     formData.append('file', blob, 'image.png');
+    formData.append('save_image', 'true');
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", {file: formData, save_image: true}, {headers: headers}));
+    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", formData, {headers: headers}));
     return res.confidence;
   }
 }
