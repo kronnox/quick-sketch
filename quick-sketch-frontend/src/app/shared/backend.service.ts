@@ -18,12 +18,11 @@ export class BackendService {
   async predictBlob(blob: Blob): Promise<number[]> {
     const formData = new FormData();
     formData.append('file', blob, 'image.png');
-    formData.append('save_image', 'true');
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", formData, {headers: headers}));
+    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image?save_image_flag=true", formData, {headers: headers}));
     return res.confidence;
   }
 }
