@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NgxDrawingCanvasComponent} from "../ngx-drawing-canvas/ngx-drawing-canvas.component";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {firstValueFrom, lastValueFrom, map, Observable, take} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 
@@ -22,9 +22,7 @@ export class BackendService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image", formData, {headers: headers}));
-    //this.toastr.success('It\'s a ' + res[0].class+'!');
-    return res.confidence[0];
-    //return new Array<number>(this._classes.length);
+    const res = await firstValueFrom(this.httpClient.post<any>("http://85.235.67.211:8000/predict/image?save_image_flag=true", formData, {headers: headers}));
+    return res.confidence;
   }
 }

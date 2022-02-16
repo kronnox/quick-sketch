@@ -23,11 +23,11 @@
     <wot-button icon="cloud-upload-outline" (click)="uploadCanvas(drawingCanvas)"></wot-button>
 
   </wot-sidebar>
-  <table class="prediction-table">
-    <h2>Draw a(n) {{(backendService.$classes | async)?.[suggestionIndex]}}</h2>
+  <table class="prediction-table" *ngIf="backendService.$classes | async">
+    <h2>Zeichne ein(en) {{(backendService.$classes | async)?.[suggestionIndex]}}</h2>
     <tr>
-      <th>Class</th>
-      <th>Confidence</th>
+      <th>Klasse</th>
+      <th>Konfidenz</th>
     </tr>
     <tr *ngFor="let class of backendService.$classes | async; let i = index" [style.color]="getClassColor(i)">
       <td>{{class}}</td>
